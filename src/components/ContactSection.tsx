@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Icon from "@/components/ui/icon";
 
 const PROJECT_2 = "https://cdn.poehali.dev/projects/12a0b5c2-0143-4114-ab5a-fa601908639a/files/620ac98b-f354-420c-94ca-f1cb02b6332d.jpg";
@@ -23,7 +24,34 @@ const reviews = [
   },
 ];
 
+const API_URL = "https://functions.poehali.dev/61054e6e-1831-4e69-ad39-182142cbf05b";
+
 export default function ContactSection() {
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [description, setDescription] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("loading");
+    try {
+      const res = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, phone, description }),
+      });
+      if (res.ok) {
+        setStatus("success");
+        setName(""); setPhone(""); setDescription("");
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
+  };
+
   return (
     <>
       {/* ABOUT */}
@@ -145,42 +173,71 @@ export default function ContactSection() {
 
             <div className="bg-[#0D0D0D] border border-white/5 p-8">
               <h3 className="font-display text-xl tracking-wide mb-6">ОСТАВИТЬ ЗАЯВКУ</h3>
-              <form className="space-y-4" onSubmit={e => e.preventDefault()}>
-                <div>
-                  <label className="text-white/40 text-xs font-display tracking-widest block mb-2">ИМЯ</label>
-                  <input
-                    type="text"
-                    placeholder="Ваше имя"
-                    className="w-full bg-[#111] border border-white/10 focus:border-orange-500 text-white placeholder-white/20 px-4 py-3 text-sm outline-none transition-colors font-body"
-                  />
+
+              {status === "success" ? (
+                <div className="flex flex-col items-center justify-center py-12 gap-4">
+                  <div className="w-14 h-14 border border-orange-500 flex items-center justify-center">
+                    <Icon name="Check" size={28} className="text-orange-500" />
+                  </div>
+                  <p className="font-display text-lg tracking-wide text-center">ЗАЯВКА ОТПРАВЛЕНА</p>
+                  <p className="text-white/40 text-sm text-center">Мы свяжемся с вами в ближайшее время</p>
+                  <button
+                    onClick={() => setStatus("idle")}
+                    className="mt-2 text-orange-500 font-display text-xs tracking-widest hover:text-orange-400 transition-colors"
+                  >
+                    ОТПРАВИТЬ ЕЩЁ
+                  </button>
                 </div>
-                <div>
-                  <label className="text-white/40 text-xs font-display tracking-widest block mb-2">ТЕЛЕФОН</label>
-                  <input
-                    type="tel"
-                    placeholder="+7 (___) ___-__-__"
-                    className="w-full bg-[#111] border border-white/10 focus:border-orange-500 text-white placeholder-white/20 px-4 py-3 text-sm outline-none transition-colors font-body"
-                  />
-                </div>
-                <div>
-                  <label className="text-white/40 text-xs font-display tracking-widest block mb-2">ОПИСАНИЕ ОБЪЕКТА</label>
-                  <textarea
-                    rows={4}
-                    placeholder="Расскажите о вашем проекте..."
-                    className="w-full bg-[#111] border border-white/10 focus:border-orange-500 text-white placeholder-white/20 px-4 py-3 text-sm outline-none transition-colors font-body resize-none"
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="w-full bg-orange-500 hover:bg-orange-600 text-white font-display text-sm tracking-widest py-4 transition-all flex items-center justify-center gap-2"
-                >
-                  ОТПРАВИТЬ ЗАЯВКУ
-                  <Icon name="ArrowRight" size={16} />
-                </button>
-                <p className="text-white/20 text-xs text-center">
-                  Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности
-                </p>
-              </form>
+              ) : (
+                <form className="space-y-4" onSubmit={handleSubmit}>
+                  <div>
+                    <label className="text-white/40 text-xs font-display tracking-widest block mb-2">ИМЯ</label>
+                    <input
+                      type="text"
+                      placeholder="Ваше имя"
+                      value={name}
+                      onChange={e => setName(e.target.value)}
+                      required
+                      className="w-full bg-[#111] border border-white/10 focus:border-orange-500 text-white placeholder-white/20 px-4 py-3 text-sm outline-none transition-colors font-body"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-white/40 text-xs font-display tracking-widest block mb-2">ТЕЛЕФОН</label>
+                    <input
+                      type="tel"
+                      placeholder="+7 (___) ___-__-__"
+                      value={phone}
+                      onChange={e => setPhone(e.target.value)}
+                      required
+                      className="w-full bg-[#111] border border-white/10 focus:border-orange-500 text-white placeholder-white/20 px-4 py-3 text-sm outline-none transition-colors font-body"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-white/40 text-xs font-display tracking-widest block mb-2">ОПИСАНИЕ ОБЪЕКТА</label>
+                    <textarea
+                      rows={4}
+                      placeholder="Расскажите о вашем проекте..."
+                      value={description}
+                      onChange={e => setDescription(e.target.value)}
+                      className="w-full bg-[#111] border border-white/10 focus:border-orange-500 text-white placeholder-white/20 px-4 py-3 text-sm outline-none transition-colors font-body resize-none"
+                    />
+                  </div>
+                  {status === "error" && (
+                    <p className="text-red-400 text-xs">Ошибка отправки. Попробуйте ещё раз или позвоните нам.</p>
+                  )}
+                  <button
+                    type="submit"
+                    disabled={status === "loading"}
+                    className="w-full bg-orange-500 hover:bg-orange-600 disabled:opacity-60 text-white font-display text-sm tracking-widest py-4 transition-all flex items-center justify-center gap-2"
+                  >
+                    {status === "loading" ? "ОТПРАВКА..." : "ОТПРАВИТЬ ЗАЯВКУ"}
+                    {status !== "loading" && <Icon name="ArrowRight" size={16} />}
+                  </button>
+                  <p className="text-white/20 text-xs text-center">
+                    Нажимая кнопку, вы соглашаетесь с политикой конфиденциальности
+                  </p>
+                </form>
+              )}
             </div>
           </div>
         </div>
