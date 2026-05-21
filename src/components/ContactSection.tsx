@@ -126,9 +126,9 @@ export default function ContactSection() {
                 {[
                   { icon: "Phone", label: "Даниил", value: "+7 (910) 174-91-00" },
                   { icon: "Phone", label: "Дмитрий", value: "+7 (999) 005-14-20" },
-                  { icon: "Mail", label: "Email", value: "info@daniil.ru" },
+                  { icon: "Mail", label: "Email", value: "nikoinvest.stroy@mail.ru" },
                   { icon: "MapPin", label: "Адрес", value: "ул. Гастелло, 8" },
-                  { icon: "Clock", label: "Часы работы", value: "Пн–Пт: 09:00 – 18:00" },
+                  { icon: "Clock", label: "Часы работы", value: "Ежедневно 08:00 – 21:00" },
                 ].map((c, i) => (
                   <div key={i} className="flex items-start gap-4">
                     <div className="w-10 h-10 border border-orange-500/30 flex items-center justify-center flex-shrink-0">
