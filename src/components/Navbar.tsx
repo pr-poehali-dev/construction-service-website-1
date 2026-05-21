@@ -13,7 +13,7 @@ export default function Navbar() {
           <div className="w-8 h-8 bg-orange-500 flex items-center justify-center">
             <Icon name="Triangle" size={16} className="text-white fill-white" />
           </div>
-          <span className="font-display text-xl tracking-widest text-white">СТРОЙПРОМ</span>
+          <span className="font-display text-xl tracking-widest text-white">ДАНИИЛ ЕВГЕНЬЕВИЧ</span>
         </div>
 
         <nav className="hidden md:flex items-center gap-8">

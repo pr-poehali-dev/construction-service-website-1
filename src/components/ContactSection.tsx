@@ -6,7 +6,7 @@ const reviews = [
   {
     name: "Андрей Волков",
     role: "Директор, ПАО «МеталлГрупп»",
-    text: "СтройПром сдал объект на 2 недели раньше срока. Работали чётко, без лишних слов — просто сделали то, что обещали. Уже заключаем договор на следующий объект.",
+    text: "Даниил Евгеньевич сдал объект на 2 недели раньше срока. Работали чётко, без лишних слов — просто сделали то, что обещали. Уже заключаем договор на следующий объект.",
     stars: 5,
   },
   {
@@ -42,7 +42,7 @@ export default function ContactSection() {
             <h2 className="font-display text-4xl md:text-5xl mb-8">О КОМПАНИИ</h2>
 
             <p className="text-white/60 text-lg leading-relaxed mb-6">
-              <span className="text-white font-medium">СтройПром</span> — один из ведущих генеральных
+              <span className="text-white font-medium">Даниил Евгеньевич</span> — один из ведущих генеральных
               подрядчиков в промышленном строительстве. Основаны в 2006 году, за это время реализовали
               более 340 объектов суммарной площадью свыше 2,1 миллиона квадратных метров.
             </p>
@@ -125,7 +125,7 @@ export default function ContactSection() {
               <div className="space-y-6">
                 {[
                   { icon: "Phone", label: "Телефон", value: "+7 (800) 555-01-23" },
-                  { icon: "Mail", label: "Email", value: "info@stroyprom.ru" },
+                  { icon: "Mail", label: "Email", value: "info@daniil.ru" },
                   { icon: "MapPin", label: "Адрес", value: "Москва, ул. Промышленная, 14" },
                   { icon: "Clock", label: "Часы работы", value: "Пн–Пт: 09:00 – 18:00" },
                 ].map((c, i) => (
@@ -192,9 +192,9 @@ export default function ContactSection() {
             <div className="w-6 h-6 bg-orange-500 flex items-center justify-center">
               <Icon name="Triangle" size={11} className="text-white fill-white" />
             </div>
-            <span className="font-display text-sm tracking-widest">СТРОЙПРОМ</span>
+            <span className="font-display text-sm tracking-widest">ДАНИИЛ ЕВГЕНЬЕВИЧ</span>
           </div>
-          <p className="text-white/20 text-xs">© 2006–2024 СтройПром. Все права защищены.</p>
+          <p className="text-white/20 text-xs">© 2006–2024 Даниил Евгеньевич. Все права защищены.</p>
           <div className="flex gap-6">
             {["ВК", "TG", "YT"].map(s => (
               <a key={s} href="#" className="text-white/20 hover:text-orange-500 font-display text-xs tracking-widest transition-colors">
