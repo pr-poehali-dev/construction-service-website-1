@@ -124,7 +124,8 @@ export default function ContactSection() {
 
               <div className="space-y-6">
                 {[
-                  { icon: "Phone", label: "Телефон", value: "+7 (800) 555-01-23" },
+                  { icon: "Phone", label: "Даниил", value: "+7 (910) 174-91-00" },
+                  { icon: "Phone", label: "Дмитрий", value: "+7 (999) 005-14-20" },
                   { icon: "Mail", label: "Email", value: "info@daniil.ru" },
                   { icon: "MapPin", label: "Адрес", value: "Москва, ул. Промышленная, 14" },
                   { icon: "Clock", label: "Часы работы", value: "Пн–Пт: 09:00 – 18:00" },
